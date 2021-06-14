@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="Escribe tu nombre y apellido" [(ngModel)]="employeService.selectedEmployee.name">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="position" class="form-control" placeholder="Escribe tu posición" [(ngModel)]="employeService.selectedEmployee.position">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="office" class="form-control"  placeholder="Escribe tu lugar" [(ngModel)]="employeService.selectedEmployee.office">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="salary" class="form-control" placeholder="Escribe tu salario" [(ngModel)]="employeService.selectedEmployee.salary" >
+                    </div>
+                    <button class="btn btn-primary mr-4">
+                        Limpiar
+                    </button>
+                    <button class="btn btn-secondary">
+                        Guardar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Ocupación</th>
+                    <th>Zona</th>
+                    <th>Salario</th>
+                    <th>Operación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employeService.employees">
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.position}}</td>
+                    <td>{{employee.office}}</td>
+                    <td>{{employee.salary}}</td>
+                    <td>
+                        <button class="btn btn-secondary">
+                            <i class="material-icons">edit</i>
+                        </button>
+                        <button class="btn btn-danger">
+                            <i class="material-icons">delete</i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
