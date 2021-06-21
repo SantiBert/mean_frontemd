@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { EmployeeService } from '../../services/employee.service';
+import { Employee } from '../models/employee';
 
 @Component({
   selector: 'app-employee',
@@ -15,6 +16,10 @@ export class EmployeeComponent implements OnInit {
     this.getEmployee();
   }
 
+  resetEmployee(form:NgForm){
+    form.reset();
+  }
+  
   getEmployee(){
     this.employeService.getEmployees().subscribe(
       res => {
@@ -24,10 +29,38 @@ export class EmployeeComponent implements OnInit {
     )
   }
   addEmployee(form:NgForm){
-    this.employeService.createEmployee(form.value).subscribe(
-      res => this.getEmployee(),
-      err => console.error(err)
+    if(form.value._id){
+      this.employeService.putEmployee(form.value).subscribe(
+        (res) => {
+          this.getEmployee();
+          form.reset();
+        },
+        (err) => console.error(err)
+      )
+    } else {
+      console.log(form.value)
+      this.employeService.createEmployee(form.value).subscribe(
+      (res) => {
+        this.getEmployee();
+        form.reset();
+      },
+      (err) => console.error(err)
 
     )
+    }
+  }
+  deleteEmployee(id:string){
+    if (confirm('¿Estas seguro?')){
+      this.employeService.deleteEmployee(id).subscribe(
+        res => {
+          this.getEmployee()
+        },
+        err => console.error(err)
+      )
+    }
+  }
+
+  editEmployee(employee:Employee){
+    this.employeService.selectedEmployee = employee;
   }
 }

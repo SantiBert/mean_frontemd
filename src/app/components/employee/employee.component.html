@@ -3,6 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm)">
+                    <input type="hidden" name="_id" [(ngModel)]="employeService.selectedEmployee._id">
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" placeholder="Escribe tu nombre y apellido" [(ngModel)]="employeService.selectedEmployee.name">
                     </div>
@@ -15,10 +16,10 @@
                     <div class="form-group">
                         <input type="number" name="salary" class="form-control" placeholder="Escribe tu salario" [(ngModel)]="employeService.selectedEmployee.salary" >
                     </div>
-                    <button class="btn btn-primary mr-4">
+                    <button class="btn btn-primary mr-4" (click)="resetEmployee(employeeForm)">
                         Limpiar
                     </button>
-                    <button class="btn btn-secondary">
+                    <button class="btn btn-secondary" type="submit">
                         Guardar
                     </button>
                 </form>
@@ -43,10 +44,10 @@
                     <td>{{employee.office}}</td>
                     <td>{{employee.salary}}</td>
                     <td>
-                        <button class="btn btn-secondary">
+                        <button class="btn btn-secondary" (click)='editEmployee(employee)'>
                             <i class="material-icons">edit</i>
                         </button>
-                        <button class="btn btn-danger">
+                        <button class="btn btn-danger" (click)='deleteEmployee(employee._id)'>
                             <i class="material-icons">delete</i>
                         </button>
                     </td>

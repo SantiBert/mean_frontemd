@@ -3,7 +3,7 @@ export interface Employee {
     position:string
     office:string
     salary:number
-    createdAt:string
-    updatedAt:string
+    createdAt?:string
+    updatedAt?:string
     _id:string
 }
